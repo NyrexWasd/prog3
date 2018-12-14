@@ -29,6 +29,7 @@ for (var y = 0; y < 51; y++) {
 	}
 }
 console.log(matrix);
+
 class Grass {
 	constructor(x, y) {
 		this.x = x;
@@ -77,7 +78,7 @@ class Cow {
 		this.y = y;
 		this.color = "yellow";
 		this.multiply = 0;
-		this.energy = 10;
+		this.energy = 5;
 		this.s = 0;
 	}
 	stanalNorKordinatner() {
@@ -146,12 +147,13 @@ class Cow {
 			for (var i in GrassArr) {
 				if (this.x == GrassArr[i].x && this.y == GrassArr[i].y) {
 					GrassArr.splice(i, 1);
+					break;
 				}
 			}
 
 			matrix[this.y][this.x] = 2;
 			this.s++;
-			if (this.s >= 1) {
+			if (this.s >= 3) {
 				this.spread();
 				this.s = 0;
 			}
@@ -166,6 +168,7 @@ class Cow {
 		for (var i in CowArr) {
 			if (this.x == CowArr[i].x && this.y == CowArr[i].y) {
 				CowArr.splice(i, 1);
+				break;
 			}
 
 		}
@@ -183,7 +186,7 @@ class Wolf {
 		this.x = x;
 		this.y = y;
 		this.color = "red";
-		this.energy = 1;
+		this.energy = 3;
 		this.s = 0;
 	}
 	stanalNorKordinatner() {
@@ -261,11 +264,12 @@ class Wolf {
 			for (var i in CowArr) {
 				if (this.x == CowArr[i].x && this.y == CowArr[i].y) {
 					CowArr.splice(i, 1);
+					break;
 				}
 			}
 			matrix[this.y][this.x] = 3;
 			this.s++;
-			if (this.s >= 5) {
+			if (this.s >= 4) {
 				this.spread();
 				this.s = 0;
 			}
@@ -278,7 +282,8 @@ class Wolf {
 		matrix[this.y][this.x] = 0;
 		for (var i in WolfArr) {
 			if (this.x == WolfArr[i].x && this.y == WolfArr[i].y) {
-				WolfArr.splice(i, 1)
+				WolfArr.splice(i, 1);
+				break;
 			}
 		}
 	}
@@ -412,6 +417,7 @@ class Men {
 					CowArr.splice(i, 1);
 					this.xx++;
 					this.multiply--;
+					break;
 				}
 			}
 			matrix[this.y][this.x] = 4;
@@ -435,6 +441,7 @@ class Men {
 		for (var i in MenArr) {
 			if (this.x == MenArr[i].x && this.y == MenArr[i].y) {
 				MenArr.splice(i, 1);
+				break;
 			}
 		}
 	}
@@ -560,6 +567,7 @@ class Girl {
 					CowArr.splice(i, 1);
 					this.xx++;
 					this.multiply--;
+					break;
 				}
 			}
 			matrix[this.y][this.x] = 5;
@@ -582,6 +590,7 @@ class Girl {
 		for (var i in GirlArr) {
 			if (this.x == GirlArr[i].x && this.y == GirlArr[i].y) {
 				GirlArr.splice(i, 1)
+				break;
 			}
 		}
 	}
