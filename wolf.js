@@ -33,8 +33,8 @@ class Wolf {
 		return found;
 	}
 	move() {
-		var cell = random(this.chooseCell(0));
-		var lcell = random(this.chooseCell(1));
+		var cell = this.chooseCell(0)[Math.floor(Math.random() * this.chooseCell(0).length)];
+		var lcell = this.chooseCell(1)[Math.floor(Math.random() * this.chooseCell(1).length)];
 		if (lcell) {
 			matrix[this.y][this.x] = 1;
 			this.y = lcell[1];
@@ -53,10 +53,8 @@ class Wolf {
 		}
 	}
 	spread() {
-		var newCell = this.chooseCell(0);
-		var newLCell = this.chooseCell(1);
-		var newCellRand = random(newCell);
-		var newLCellRand = random(newLCell);
+		var newCellRand = this.yntrelVandak(0)[Math.floor(Math.random() * this.yntrelVandak(0).length)];
+		var newLCellRand = this.yntrelVandak(1)[Math.floor(Math.random() * this.yntrelVandak(1).length)];
 		if (newLCellRand) {
 			var nwx = newLCellRand[1];
 			var wy = newLCellRand[0];

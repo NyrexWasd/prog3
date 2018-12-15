@@ -34,7 +34,7 @@ class Cow extends LivingCreature {
 	// }
 
 	move() {
-		var cell = random(this.chooseCell(0));
+		var cell = this.yntrelVandak(0)[Math.floor(Math.random() * this.yntrelVandak(0).length)];
 		if (cell) {
 			matrix[this.y][this.x] = 0;
 			this.y = cell[1];
@@ -48,8 +48,7 @@ class Cow extends LivingCreature {
 	}
 
 	spread() {
-		var newCell = this.chooseCell(0);
-		var newCellRand = random(newCell);
+		var newCellRand = this.yntrelVandak(0)[Math.floor(Math.random() * this.yntrelVandak(0).length)];
 		this.multiply++;
 		if (newCellRand) {
 			var nwx = newCellRand[1];
@@ -62,7 +61,7 @@ class Cow extends LivingCreature {
 	}
 
 	eat() {
-		var ecell = random(this.chooseCell(1));
+		var ecell = this.yntrelVandak(1)[Math.floor(Math.random() * this.yntrelVandak(1).length)];;
 		if (ecell) {
 			matrix[this.y][this.x] = 0;
 			this.y = ecell[1];

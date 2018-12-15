@@ -71,7 +71,7 @@ class Men {
 	}
 	spread() {
 		var srnd;
-		var newCellRand = random(this.chooseCellH(0));
+		var newCellRand = this.chooseCellH(0)[Math.floor(Math.random() * this.chooseCellH(0).length)];
 		if (newCellRand) {
 			var wy = newCellRand[0];
 			var nwx = newCellRand[1];
@@ -93,8 +93,8 @@ class Men {
 	//________________________________________________
 	move() {
 		if (this.ss > 1) {
-			var cell = random(this.chooseCellH(0));
-			var lcell = random(this.chooseCellH(1));
+			var cell = this.chooseCellH(0)[Math.floor(Math.random() * this.chooseCellH(0).length)];
+			var lcell = this.chooseCellH(1)[Math.floor(Math.random() * this.chooseCellH(1).length)];
 			if (lcell) {
 				matrix[this.y][this.x] = 1;
 				this.y = lcell[1];
@@ -113,7 +113,7 @@ class Men {
 	}
 	eat() {
 		this.ss++;
-		var ecell = random(this.chooseCell(2));
+		var ecell = this.chooseCell(2)[Math.floor(Math.random() * this.chooseCell(2).length)];;
 		if (ecell) {
 			matrix[this.y][this.x] = 0;
 			this.y = ecell[1];
