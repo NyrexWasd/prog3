@@ -1,4 +1,6 @@
-class Cow extends LivingCreature {
+var LivingCreature=require("./LivingCreature.js");
+var Grass = require("./grass.js");
+module.exports=class Cow extends LivingCreature {
 	constructor(x, y) {
         super(x,y);
 		this.energy = 4;

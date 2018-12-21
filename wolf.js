@@ -1,4 +1,6 @@
-class Wolf {
+var Grass = require("./grass.js");
+var Cow = require("./cow.js");
+module.exports=class Wolf {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;
@@ -53,8 +55,8 @@ class Wolf {
 		}
 	}
 	spread() {
-		var newCellRand = this.yntrelVandak(0)[Math.floor(Math.random() * this.yntrelVandak(0).length)];
-		var newLCellRand = this.yntrelVandak(1)[Math.floor(Math.random() * this.yntrelVandak(1).length)];
+		var newCellRand = this.chooseCell(0)[Math.floor(Math.random() * this.chooseCell(0).length)];
+		var newLCellRand = this.chooseCell(1)[Math.floor(Math.random() * this.chooseCell(1).length)];
 		if (newLCellRand) {
 			var nwx = newLCellRand[1];
 			var wy = newLCellRand[0];
@@ -71,7 +73,7 @@ class Wolf {
 		}
 	}
 	eat() {
-		var ecell = random(this.chooseCell(2));
+		var ecell = this.chooseCell(2)[Math.floor(Math.random() * this.chooseCell(2).length)];
 		if (ecell) {
 			matrix[this.y][this.x] = 0;
 			this.y = ecell[1];

@@ -1,4 +1,8 @@
-class Girl {
+var Grass = require("./grass.js");
+var Cow = require("./cow.js");
+var Wolf = require("./wolf.js");
+var Men = require("./men.js");
+module.exports=class Girl {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;

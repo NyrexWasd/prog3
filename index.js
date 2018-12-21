@@ -8,10 +8,12 @@ app.get('/', function (req, res) {
 });
 server.listen(3000);
 
-var Cow = require("./class-cow.js");
-var Wolf = require("./class-wolf.js");
-var tGrass = require("./class-tgrass.js");
-var Grass = require("./class-grass.js");
+var Grass = require("./grass.js");
+var Cow = require("./cow.js");
+var Wolf = require("./wolf.js");
+var Men = require("./wolf.js");
+var Girl = require("./girl.js");
+
 
 matrix = [];
 GrassArr = [];
@@ -67,23 +69,26 @@ for (var y = 0; y < matrix.length; ++y) {
     }
 }
 
+function draw()
+{
+    for (var i in GrassArr) {
+        GrassArr[i].bazmanal();
+    }
+    for (var i in CowArr) {
+        CowArr[i].eat();
+    }
+    for (var i in WolfArr) {
+        WolfArr[i].eat();
+    }
+    for (var i in MenArr) {
+        MenArr[i].eat();
+    }
+    for (var i in GirlArr) {
+        GirlArr[i].eat();
+    }
+}
 
 
-for (var i in GrassArr) {
-    GrassArr[i].bazmanal();
-}
-for (var i in CowArr) {
-    CowArr[i].eat();
-}
-for (var i in WolfArr) {
-    WolfArr[i].eat();
-}
-for (var i in MenArr) {
-    MenArr[i].eat();
-}
-for (var i in GirlArr) {
-    GirlArr[i].eat();
-}
 
 setInterval(draw, 1000);
 
