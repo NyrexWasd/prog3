@@ -113,6 +113,6 @@ function draw()
     io.sockets.emit("season", season);
     io.sockets.emit("matrix", matrix);
     tact++;
-    console.log(matrix);
+   // console.log(matrix);
 }
 setInterval(draw, 1000);
