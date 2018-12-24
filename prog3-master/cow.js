@@ -19,22 +19,6 @@ module.exports=class Cow extends LivingCreature {
 		];
 	}
 
-
-	// yntrelVandak(ch) {
-	// 	var found = [];
-	// 	this.stanalNorKordinatner();
-	// 	for (var i in this.directions) {
-	// 		var x = this.directions[i][0];
-	// 		var y = this.directions[i][1];
-	// 		if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-	// 			if (matrix[y][x] == ch) {
-	// 				found.push(this.directions[i]);
-	// 			}
-	// 		}
-	// 	}
-	// 	return found;
-	// }
-
 	move() {
 		var cell = this.yntrelVandak(0)[Math.floor(Math.random() * this.yntrelVandak(0).length)];
 		if (cell) {
@@ -45,6 +29,7 @@ module.exports=class Cow extends LivingCreature {
 			this.energy--;
 			if (this.energy < 1) {
 				this.die();
+				statistics.cow.die.sovac_u_old.newHerb=global.newHerb;
 			}
 		}
 	}
@@ -56,8 +41,8 @@ module.exports=class Cow extends LivingCreature {
 			var nwx = newCellRand[1];
 			var wy = newCellRand[0];
 			matrix[wy][nwx] = 2;
-			var newHerb = new Cow(nwx, wy);
-			CowArr.push(newHerb);
+			global.newHerb = new Cow(nwx, wy);
+			CowArr.push(global.newHerb);
 
 		}
 	}
@@ -71,6 +56,7 @@ module.exports=class Cow extends LivingCreature {
 			for (var i in GrassArr) {
 				if (this.x == GrassArr[i].x && this.y == GrassArr[i].y) {
 					GrassArr.splice(i, 1);
+					statistics.grass.die.eaten.norXot=global.norXot;
 					break;
 				}
 			}
@@ -79,6 +65,7 @@ module.exports=class Cow extends LivingCreature {
 			this.s++;
 			if (this.s >= 4) {
 				this.spread();
+				statistics.cow.born.newHerb=global.newHerb;
 				this.s = 0;
 			}
 		}

@@ -7,6 +7,53 @@ app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 server.listen(3000);
+statistics = {
+    "grass": {
+        "born": {},
+        "die": {
+            "click": {},
+            "eaten": {/*+*/},
+        },
+    },
+    "cow": {
+        "born": {/*+*/},
+        "die": {
+            "click": {},
+            "eaten": {/*+*/},
+            "sovac_u_old": {/*+*/},
+        },
+    },
+    "wolf": {
+        "born": {/*+*/},
+        "die": {
+            "click": {},
+            "eaten": {},
+            "sovac_u_old": {/*+*/},
+        },
+    },
+    "men": {
+        "born": {
+            "click": {},
+            "auto": {/*+-*/},
+        },
+        "die": {
+            "click": {},
+            "eaten": {},
+            "sovac_u_old": {/*+*/},
+        }
+    },
+    "girl": {
+        "born": {
+            "click": {},
+            "auto": {/*+-*/},
+        },
+        "die": {
+            "click": {},
+            "eaten": {},
+            "sovac_u_old": {},
+        },
+    },
+}
 var tact = 0;
 var Grass = require("./grass.js");
 var Cow = require("./cow.js");
@@ -116,21 +163,19 @@ io.on('connection', function (socket) {
                 }
             }
         }
-        if(Math.random()>0.5)
-        {
-            var avelacnelid=4;
-            var avelacnel=MenArr;
-            var avelacnelclass=Men;
+        if (Math.random() > 0.5) {
+            var avelacnelid = 4;
+            var avelacnel = MenArr;
+            var avelacnelclass = Men;
         }
-        else
-        {
-            var avelacnelid=5;
-            var avelacnel=GirlArr;
-            var avelacnelclass=Girl;
+        else {
+            var avelacnelid = 5;
+            var avelacnel = GirlArr;
+            var avelacnelclass = Girl;
         }
 
         matrix[y][x] = avelacnelid;
-        avelacnel.push(new avelacnelclass(x * 1, y * 1,2 /*avelacnelidstex 2 er, xiii????*/ ));
+        avelacnel.push(new avelacnelclass(x * 1, y * 1, avelacnelid /*2 er, xiii????*/));
     });
 });
 
@@ -187,6 +232,7 @@ function draw() {
     io.sockets.emit("season", season);
     io.sockets.emit("matrix", matrix);
     tact++;
-    // console.log(matrix);
+    var obj = JSON.stringify(statistics);
+    document.getElementsByTagName("h4").innerHTML = obj;
 }
 setInterval(draw, 500);

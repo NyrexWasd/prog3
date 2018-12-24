@@ -79,13 +79,16 @@ module.exports=class Girl {
 			var rnd = Math.round(Math.random());
 			if (rnd == 1 && newCellRand) {
 				matrix[wy][nwx] = 4;
-				var newMen = new Men(nwx, wy);
-				MenArr.push(newMen);
+				global.newMen = new Men(nwx, wy);
+				MenArr.push(global.newMen);
+				statistics.men.born.auto.newMen = global.newMen;
 			}
 			else if (rnd == 0 && newCellRand) {
 				matrix[wy][nwx] = 5;
-				var newGirl = new Girl(nwx, wy);
-				GirlArr.push(newGirl);
+				global.newGirl = new Girl(nwx, wy);
+				GirlArr.push(global.newGirl);
+				statistics.girl.born.auto.newGirl = global.newGirl;
+
 			}
 		}
 	}
@@ -119,6 +122,8 @@ module.exports=class Girl {
 					CowArr.splice(i, 1);
 					this.xx++;
 					this.multiply--;
+					statistics.cow.die.eaten.newHerb = global.newHerb;
+
 					break;
 				}
 			}
@@ -135,6 +140,8 @@ module.exports=class Girl {
 		}
 		if (this.multiply > 14) {
 			this.die();
+			statistics.girl.die.sovac_u_old.newGirl = global.newGirl;
+
 		}
 	}
 	die() {
