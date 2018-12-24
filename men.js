@@ -2,7 +2,7 @@ var Grass = require("./grass.js");
 var Cow = require("./cow.js");
 var Wolf = require("./wolf.js");
 var Girl = require("./girl.js");
-module.exports=class Men {
+module.exports = class Men {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;
@@ -82,13 +82,15 @@ module.exports=class Men {
 			var rnd = Math.round(Math.random());
 			if (rnd == 1 && newCellRand) {
 				matrix[wy][nwx] = 4;
-				var newMen = new Men(nwx, wy);
-				MenArr.push(newMen);
+				global.newMen = new Men(nwx, wy);
+				MenArr.push(global.newMen);
+				statistics.men.born.auto.newMen = global.newMen;
 			}
 			else if (rnd == 0 && newCellRand) {
 				matrix[wy][nwx] = 5;
-				var newGirl = new Girl(nwx, wy);
-				GirlArr.push(newGirl);
+				global.newGirl = new Girl(nwx, wy);
+				GirlArr.push(global.newGirl);
+				statistics.girl.born.auto.newGirl = newGirl;
 			}
 		}
 
@@ -127,6 +129,7 @@ module.exports=class Men {
 					CowArr.splice(i, 1);
 					this.xx++;
 					this.multiply--;
+					statistics.cow.die.eaten.newHerb = global.newHerb;
 					break;
 				}
 			}
@@ -144,6 +147,7 @@ module.exports=class Men {
 
 		if (this.multiply > 14) {
 			this.die();
+			statistics.men.die.sovac_u_old.newMen = global.newMen;
 		}
 	}
 	die() {

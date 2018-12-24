@@ -18,6 +18,18 @@ function setup() {
     createCanvas(500, 500);
     background("#acacac");
 }
+function mousePressed() {
+    var cordinates = [];
+    if (mouseX % side != 0 && mouseY % side != 0) {
+        x = Math.floor(mouseX / side);
+        y = Math.floor(mouseY / side);
+
+    }
+    cordinates[0] = x;
+    cordinates[1] = y;
+    if (x<=50 && y<=50)
+        socket.emit("eventCordinat", cordinates);
+}
 function drawMatrix(matrix) {
     background("#acacac");
     for (var y in matrix) {

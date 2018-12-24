@@ -1,6 +1,6 @@
 var Grass = require("./grass.js");
 var Cow = require("./cow.js");
-module.exports=class Wolf {
+module.exports = class Wolf {
 	constructor(x, y) {
 		this.x = x;
 		this.y = y;
@@ -51,6 +51,7 @@ module.exports=class Wolf {
 		}
 		this.energy--;
 		if (this.energy < 1) {
+			statistics.wolf.die.sovac_u_old.newWolf = global.newWolf;
 			this.die();
 		}
 	}
@@ -61,15 +62,15 @@ module.exports=class Wolf {
 			var nwx = newLCellRand[1];
 			var wy = newLCellRand[0];
 			matrix[wy][nwx] = 3;
-			var newWolf = new Wolf(nwx, wy);
-			WolfArr.push(newWolf);
+			global.newWolf = new Wolf(nwx, wy);
+			WolfArr.push(global.newWolf);
 		}
 		else if (newCellRand) {
 			var nwx = newCellRand[1];
 			var wy = newCellRand[0];
 			matrix[wy][nwx] = 3;
-			var newWolf = new Wolf(nwx, wy);
-			WolfArr.push(newWolf);
+			global.newWolf = new Wolf(nwx, wy);
+			WolfArr.push(global.newWolf);
 		}
 	}
 	eat() {
@@ -89,6 +90,7 @@ module.exports=class Wolf {
 			if (this.s >= 5) {
 				this.spread();
 				this.s = 0;
+				statistics.wolf.born.newWolf = global.newWolf;
 			}
 		}
 		else {

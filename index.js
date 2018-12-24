@@ -2,11 +2,59 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require("socket.io")(server);
+var fs = require('fs');
 app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 server.listen(3000);
+statistics = {
+    "grass": {
+        "born": {},
+        "die": {
+            "click": {},
+            "eaten": {/*+*/ },
+        },
+    },
+    "cow": {
+        "born": {/*+*/ },
+        "die": {
+            "click": {},
+            "eaten": {/*+*/ },
+            "sovac_u_old": {/*+*/ },
+        },
+    },
+    "wolf": {
+        "born": {/*+*/ },
+        "die": {
+            "click": {},
+            "eaten": {},
+            "sovac_u_old": {/*+*/ },
+        },
+    },
+    "men": {
+        "born": {
+            "click": {},
+            "auto": {/*+-*/ },
+        },
+        "die": {
+            "click": {},
+            "eaten": {},
+            "sovac_u_old": {/*+*/ },
+        }
+    },
+    "girl": {
+        "born": {
+            "click": {},
+            "auto": {/*+-*/ },
+        },
+        "die": {
+            "click": {},
+            "eaten": {},
+            "sovac_u_old": {},
+        },
+    },
+}
 var tact = 0;
 var Grass = require("./grass.js");
 var Cow = require("./cow.js");
@@ -68,41 +116,113 @@ for (var y = 0; y < matrix.length; ++y) {
         }
     }
 }
+
+
+
+io.on('connection', function (socket) {
+    socket.on("eventCordinat", function (c) {
+        x = c[0];
+        y = c[1];
+        if (matrix[y][x] == 2) {
+            for (var i in CowArr) {
+                if (this.x == CowArr[i].x && this.y == CowArr[i].y) {
+                    CowArr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+
+        else if (matrix[y][x] == 1) {
+            for (var i in GrassArr) {
+                if (GrassArr[i].x == this.x && GrassArr[i].y == this.y) {
+                    GrassArr.splice(i, 1);
+                }
+            }
+        }
+
+        else if (matrix[y][x] == 4) {
+            for (var i in MenArr) {
+                if (this.x == MenArr[i].x && this.y == MenArr[i].y) {
+                    MenArr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        else if (matrix[y][x] == 3) {
+            for (var i in WolfArr) {
+                if (this.x == WolfArr[i].x && this.y == WolfArr[i].y) {
+                    WolfArr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        else if (matrix[y][x] == 4) {
+            for (var i in GirlArr) {
+                if (this.x == GirlArr[i].x && this.y == GirlArr[i].y) {
+                    GirlArr.splice(i, 1);
+                    break;
+                }
+            }
+        }
+        if (Math.random() > 0.5) {
+            var avelacnelid = 4;
+            var avelacnel = MenArr;
+            var avelacnelclass = Men;
+        }
+        else {
+            var avelacnelid = 5;
+            var avelacnel = GirlArr;
+            var avelacnelclass = Girl;
+        }
+
+        matrix[y][x] = avelacnelid;
+        avelacnel.push(new avelacnelclass(x * 1, y * 1, avelacnelid /*2 er, xiii????*/));
+    });
+});
+
+
+
+
 var season;
 
-function spring(){
-    season="spring";
+function spring() {
+    season = "spring";
 }
 
-function summer(){
-    season="summer";
+function summer() {
+    season = "summer";
 }
 
-function autumn(){
-    season="autumn";
+function autumn() {
+    season = "autumn";
 }
 
-function winter(){
-    season="winter";
+function winter() {
+    season = "winter";
 }
-function draw()
-{
-    if(tact%20>=0 && tact%20<5)
+function draw() {
+    if (tact % 20 >= 0 && tact % 20 < 5)
         spring();
-    else if(tact%20>=5 && tact%20<10) 
+    else if (tact % 20 >= 5 && tact % 20 < 10)
         summer();
-    else if(tact%20>=10 && tact%20<15)  
+    else if (tact % 20 >= 10 && tact % 20 < 15)
         autumn();
-    else if(tact%20>=15 && tact%20<20)
+    else if (tact % 20 >= 15 && tact % 20 < 20)
         winter();
     for (var i in GrassArr) {
-        GrassArr[i].bazmanal();
+        if (tact % 20 >= 0 && tact % 20 < 15) {
+            GrassArr[i].bazmanal();
+        }
     }
     for (var i in CowArr) {
-        CowArr[i].eat();
+        if (tact % 20 >= 0 && tact % 20 < 15) {
+            CowArr[i].eat();
+        }
     }
     for (var i in WolfArr) {
-        WolfArr[i].eat();
+        if (tact % 20 >= 5 && tact % 20 < 20) {
+            WolfArr[i].eat();
+        }
     }
     for (var i in MenArr) {
         MenArr[i].eat();
@@ -113,6 +233,7 @@ function draw()
     io.sockets.emit("season", season);
     io.sockets.emit("matrix", matrix);
     tact++;
-   // console.log(matrix);
+    var dictstring = JSON.stringify(statistics);
+    fs.writeFile("obj.json", dictstring);
 }
-setInterval(draw, 1000);
+setInterval(draw, 500);
